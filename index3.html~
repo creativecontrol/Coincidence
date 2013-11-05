@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<link rel="stylesheet" type="text/css" href="style.css">
+    <script src="http://192.168.1.2:8000/socket.io/socket.io.js"></script>
+    <!--<script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>-->
+    <script type = "text/javascript" >
+    </script>
+
+</head>
+<body>
+	<div id="logo"><img src="tcp_logo_lg.png"></img></div>
+	<!--<audio id="audio1" src="CoincidenceFinalv1.mp3" preload="none" type="audio/mp3"></audio>-->
+	<audio id="audio1" src="TheCrueltyofChildren.mp3" preload="auto" type="audio/mp3" controls></audio>
+<br>
+
+<div id="standby">
+	Audio will start playing at the beginning of the piece
+</div>
+
+
+<script type = "text/javascript" >
+	var socket = io.connect('http://192.168.0.75:8000');
+	var audio = document.getElementById("audio1");
+	document.getElementById("standby").style.visibility = 'hidden';
+
+	socket.on('trig', function (data) {
+        if(data.state==='play'){
+        	//alert();
+        	playVid();	
+        }
+        if(data.state==='pause'){
+        	pauseVid();	
+        }
+        if(data.state==='rewind'){
+        	rewVid();	
+        }
+    });
+
+
+	function playVid()
+	  { 
+	  var audio = document.getElementById("audio1");	
+	  audio.play();
+	  //myVideo.play();
+	  //alert(audio.duration); 
+	  } 
+	function pauseVid()
+	  { 
+	  var audio = document.getElementById("audio1");
+	  audio.pause(); 
+	  }
+	 function rewVid()
+	  {
+	  var audio = document.getElementById("audio1");
+	  audio.currentTime = 0;	
+	  }
+	  function preset(){
+	  	var audio = document.getElementById("audio1");	
+	  	audio.play();	
+		audio.pause();
+		//document.getElementById("loader").style.visibility = 'hidden';
+		//document.getElementById("standby").style.visibility = 'visible';
+	  } 
+		
+  </script>
+  
+
+</body>
+</html>

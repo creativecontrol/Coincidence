@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="http://localhost:8000/socket.io/socket.io.js"></script>
+      <!--<script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>-->
+    
+</head>
+
+<body>
+    <h1>This is the remote</h1>
+    <br>
+	<audio id="audio1" src="CoincidenceFinalv1.mp3" preload="auto" type="audio/mp3" controls></audio>
+	<!--<audio id="audio1" src="TheCrueltyofChildren.mp3" preload="auto" type="audio/mp3" controls></audio>-->
+<ul>    
+    <button onClick="trig('play')">play</button><br>
+    <button onClick="trig('pause')">pause</button><br>
+    <button type="button" onclick="trig('rewind')"><< Rewind</button>
+	<button type="button" onclick="sync()">SYNC</button>
+</ul>
+
+
+	<script type = "text/javascript" >
+var audio = document.getElementById("audio1");
+
+    //Remote for Basic Socket Scroll test
+        var socket = io.connect('http://localhost:8000');
+
+        function trig(val){
+            socket.emit('trig', {state:val});
+		var audio = document.getElementById("audio1");
+		if(val==='play'){
+			audio.play();
+		}
+		if(val==='pause'){
+			audio.pause();
+		}
+		if(val==='rewind'){
+			audio.currentTime = 0;
+		}
+
+        }
+	function sync(){
+		var audio = document.getElementById("audio1");
+		var pos = audio.currentTime;
+		socket.emit('sync',{time:pos});
+	}
+    
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<link rel="stylesheet" type="text/css" href="style.css">
+    <script src="http://192.168.1.2:8000/socket.io/socket.io.js"></script>
+    <!--<script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>-->
+    <script type = "text/javascript" >
+    </script>
+
+</head>
+<body>
+	<div id="logo"><img src="tcp_logo_lg.png"></img></div>
+	<audio id="audio1" src="CoincidenceFinalv1.mp3" preload="auto" type="audio/mp3" onplaying="playVis()" onpause="pauseVis()"></audio>
+	<!--<audio id="audio1" src="TheCrueltyofChildren.mp3" preload="auto" type="audio/mp3"></audio>-->
+<br>
+
+<div id="standby" style="visibility:hidden">
+	Audio will start playing at the beginning of the piece
+</div>
+
+<div id="loader">
+<button onClick="preset()">Press to load</button>
+</div>
+
+<div id="indicate">
+.
+</div>
+
+
+<script type = "text/javascript" >
+	var socket = io.connect('http://192.168.1.2:8000');
+	var audio = document.getElementById("audio1");
+	document.getElementById("standby").style.visibility = 'hidden';
+
+	socket.on('trig', function (data) {
+        if(data.state==='play'){
+        	//alert();
+        	playVid();	
+        }
+        if(data.state==='pause'){
+        	pauseVid();	
+        }
+        if(data.state==='rewind'){
+        	rewVid();	
+        }
+	
+    });
+	socket.on('sync', function (data) {
+      		var audio = document.getElementById("audio1");
+		if(audio.paused){
+			//alert(audio.currentTime);
+			audio.currentTime = data.time;
+			audio.play();	
+			
+		}
+      
+   	});
+
+
+	function playVid()
+	  { 
+	  var audio = document.getElementById("audio1");	
+	  audio.play();
+	  //myVideo.play();
+	  //alert(audio.duration); 
+	  } 
+	function pauseVid()
+	  { 
+	  var audio = document.getElementById("audio1");
+	  audio.pause(); 
+	  }
+	 function rewVid()
+	  {
+	  var audio = document.getElementById("audio1");
+	  audio.currentTime = 0;	
+	  }
+	  function preset(){
+	  	var audio = document.getElementById("audio1");	
+		audio.load();
+	  	audio.play();	
+		audio.pause();
+		document.getElementById("loader").style.visibility = 'hidden';
+		document.getElementById("standby").style.visibility = 'visible';
+	  } 
+
+	function playVis(){
+		document.getElementById("indicate").style.color = '#0F0';
+	}
+	function pauseVis(){
+		document.getElementById("indicate").style.color = '#F00';
+	}
+		
+  </script>
+  
+
+</body>
+</html>

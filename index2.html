@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<link rel="stylesheet" type="text/css" href="style.css">
+    <script src="http://192.168.0.75:8000/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+
+</head>
+<body>
+	<!--<audio id="audio1" src="CoincidenceFinalv1.mp3" preload="none" type="audio/mp3"controls></audio>-->
+	<audio id="audio1" src="TheCrueltyofChildren.mp3" preload="auto" type="audio/mp3" controls></audio>
+
+	<br>
+
+<button onClick="playVid()">play</button><br>
+<button onClick="pauseVid()">pause</button>
+
+  <script type = "text/javascript" >
+	var socket = io.connect('http://192.168.0.75:8000');
+	var myVideo=document.getElementById("audio1"); 
+	function playVid()
+	  { 
+	  myVideo.play(); 
+	  } 
+	function pauseVid()
+	  { 
+	  myVideo.pause(); 
+	  }
+	 function rewVid()
+	  { 
+	  myVideo.currentTime = 0;	
+	  } 
+
+	  socket.on('trig', function (data) {
+        if(data.state==='play'){
+        	playVid();	
+        }
+        if(data.state==='pause'){
+        	pauseVid();	
+        }
+        if(data.state==='rewind'){
+        	rewVid();	
+        }
+    });
+
+  </script>
+
+</body>
+</html>
