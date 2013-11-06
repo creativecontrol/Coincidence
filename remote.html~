@@ -14,7 +14,7 @@
 <body>
     <h1>This is the remote</h1>
     <br>
-	<audio id="audio1" src="CoincidenceFinalv1.mp3" preload="none" type="audio/mp3" controls></audio>
+	<audio id="audio1" src="CoincidenceFinalv1.mp3" preload="auto" type="audio/mp3" controls></audio>
 	<!--<audio id="audio1" src="TheCrueltyofChildren.mp3" preload="auto" type="audio/mp3" controls></audio>-->
 <ul>    
     <button onClick="trig('play')">play</button><br>

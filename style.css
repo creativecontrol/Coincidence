@@ -26,6 +26,17 @@
 	height:80px;
 }
 
+#loader2 button{
+	position:absolute;
+	top:10px;
+	left:50%;
+	font-size: 30pt;
+	font-weight:bold;
+	width:350px;
+	height:60px;
+}
+
+
 #standby{
 	position:absolute;
 	top:30px;

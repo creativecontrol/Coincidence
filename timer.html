@@ -12,23 +12,20 @@
 </head>
 <body>
 <div id="txt" style = "font-size:300px; margin-left:auto; margin-right:auto; text-align: center; width:100%;" >00:00</div>
+
 	<!-- <div id="logo"><img src="tcp_logo_lg.png"></img></div> --> 
 	<audio id="audio1" src="CoincidenceFinalv1.mp3" preload="none" type="audio/mp3"></audio>
 	<!--<audio id="audio1" src="TheCrueltyofChildren.mp3" preload="auto" type="audio/mp3" ></audio>-->
 <br>
 
-<div id="standby">
-	Audio will start playing at the beginning of the piece
-
-</div>
-<div id="loader">
+<div id="loader2">
 <button onClick="preset()">Press to load</button>
 </div>
 
 <script type = "text/javascript" >
 	var socket = io.connect('http://192.168.1.2:8000');
 	var audio = document.getElementById("audio1");
-	document.getElementById("standby").style.visibility = 'hidden';
+	//document.getElementById("standby").style.visibility = 'hidden';
 
 	socket.on('trig', function (data) {
         if(data.state==='play'){
@@ -97,7 +94,7 @@
 	  	var audio = document.getElementById("audio1");	
 	  	audio.play();	
 		audio.pause();
-		document.getElementById("loader").style.visibility = 'hidden';
+		document.getElementById("loader2").style.visibility = 'hidden';
 		//document.getElementById("standby").style.visibility = 'visible';
 	 } 
 		
