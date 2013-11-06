@@ -28,7 +28,7 @@
 var audio = document.getElementById("audio1");
 
     //Remote for Basic Socket Scroll test
-        var socket = io.connect('http://localhost:8000');
+        var socket = io.connect('http://192.168.1.2:8000');
 
         function trig(val){
             socket.emit('trig', {state:val});
